@@ -21,7 +21,20 @@ colnames(dataset) = c("Date","Time",
                       "Sub_metering_1",
                       "Sub_metering_2",
                       "Sub_metering_3")
-#creating hist plot
-png("plot1.png", height = 480, width = 480)
-hist(dataset$Global_active_power, col = "red", xlab = "Global Active Power (kilowatts)", main = "Global Active Power") #plot 1
+#creating line plot
+date_time <- strptime(paste(dataset$Date, dataset$Time, sep=" "), "%d/%m/%Y %H:%M:%S") 
+Submeter1 <- as.numeric(dataset$Sub_metering_1)
+Submeter2 <- as.numeric(dataset$Sub_metering_2)
+Submeter3 <- as.numeric(dataset$Sub_metering_3)
+#plotting and converting for graphic device
+png("plot3.png", height = 480, width = 480)
+plot(date_time, Submeter1, type = "l", ylab = "Energy sub metering", xlab = "")
+lines(date_time, Submeter1, col = "black", type = "l")
+lines(date_time, Submeter2, col = "red", type = "l")
+lines(date_time, Submeter3, col = "blue", type = "l")
+legend("topright",
+       lty = 1,
+       lwd = 2.5,
+       col = c("black","red","blue"), 
+       legend = c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))
 dev.off()

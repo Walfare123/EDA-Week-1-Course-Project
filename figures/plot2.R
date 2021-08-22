@@ -21,7 +21,9 @@ colnames(dataset) = c("Date","Time",
                       "Sub_metering_1",
                       "Sub_metering_2",
                       "Sub_metering_3")
-#creating hist plot
-png("plot1.png", height = 480, width = 480)
-hist(dataset$Global_active_power, col = "red", xlab = "Global Active Power (kilowatts)", main = "Global Active Power") #plot 1
+#creating line plot
+date_time <- strptime(paste(dataset$Date, dataset$Time, sep=" "), "%d/%m/%Y %H:%M:%S") 
+activepower <- as.numeric(dataset$Global_active_power)
+png("plot2.png", height = 480, width = 480)
+plot(date_time, activepower, type="l", xlab="", ylab="Global Active Power (kilowatts)")
 dev.off()
